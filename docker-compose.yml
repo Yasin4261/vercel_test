@@ -1,0 +1,26 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my-postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  nodeapp:
+    build: .
+    container_name: my-nodeapp
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://myuser:mysecretpassword@postgres:5432/mydatabase
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
