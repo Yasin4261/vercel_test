@@ -6,11 +6,7 @@ app.use(express.json());
 
 // PostgreSQL bağlantısı için ayarlarımız
 const pool = new Pool({
-  user: 'myuser',
-  host: 'my-postgres',
-  database: 'mydatabase',
-  password: 'mysecretpassword',
-  port: 5432,
+  connectionString: 'postgres://myuser:mysecretpassword@postgres:5432/mydatabase', // Render'dan aldığınız bağlantı URL'si
 });
 
 const createTableIfNotExists = async () => {
